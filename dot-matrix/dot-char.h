@@ -20,41 +20,42 @@
 #include "dot-matrix.h"
 #include "dot-font.h"
 
-class DotChar {
+class DotChar
+{
 public:
-	DotChar(DotMatrix & dm, const DotFont & df);
-	virtual ~DotChar();
+    DotChar( DotMatrix &dm, const DotFont &df );
+    virtual ~DotChar();
 
-	void setChar(const char chr);
-	void setVertical(const bool vertical = true);
+    void setChar( const char chr );
+    void setVertical( const bool vertical = true );
 
-	void postAt(const uint8_t col, const uint8_t row);
+    void postAt( const uint8_t col, const uint8_t row );
 
-	void clear(const bool on = false) const;
+    void clear( const bool on = false ) const;
 
-	uint8_t calcFontRealWidth() const;
-	uint8_t getWidth() const ;
-	uint8_t getHeight() const ;
+    uint8_t calcFontRealWidth() const;
+    uint8_t getWidth() const ;
+    uint8_t getHeight() const ;
 
-	bool getVertical() const ;
+    bool getVertical() const ;
 
-	uint8_t getMaxCol() const ;
+    uint8_t getMaxCol() const ;
 
-	uint8_t getMaxRow() const ;
+    uint8_t getMaxRow() const ;
 
 private:
-	DotMatrix & _dm;
-	const DotFont & _df;
+    DotMatrix &_dm;
+    const DotFont &_df;
 
-	uint8_t _col;
-	uint8_t _row;
-	uint8_t _index;
-	uint16_t _indent;
-	bool _vertical;
+    uint8_t _col;
+    uint8_t _row;
+    uint8_t _index;
+    uint16_t _indent;
+    bool _vertical;
 
-	void print() const ;
-	void printH() const ;
-	void printV() const;
+    void print() const ;
+    void printH() const ;
+    void printV() const;
 };
 
 #endif /* DOT_CHAR_H_ */

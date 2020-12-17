@@ -14,28 +14,29 @@
 
 #include <cmath>
 
-class Adxl345 {
+class Adxl345
+{
 public:
-	Adxl345(I2c & i2c, uint8_t address = 0x53);
-	virtual ~Adxl345();
-	void init();
-	void setOffsets(uint8_t index, uint8_t offset);
-	void measure(uint8_t index);
-	void measureRawSums();
-	void calc();
-	const int16_t *getAcceleratins();
+    Adxl345( I2c &i2c, uint8_t address = 0x53 );
+    virtual ~Adxl345();
+    void init();
+    void setOffsets( uint8_t index, uint8_t offset );
+    void measure( uint8_t index );
+    void measureRawSums();
+    void calc();
+    const int16_t *getAcceleratins();
 
 private:
-	I2c & _i2c;
+    I2c &_i2c;
 
-	const uint8_t _address;
-	int16_t _accelerations[3];
-	static float _scales[3];
-	uint16_t _measure_count;
-	int16_t _bias[3];
-	int32_t _rawdata_sums[3];
+    const uint8_t _address;
+    int16_t _accelerations[3];
+    static float _scales[3];
+    uint16_t _measure_count;
+    int16_t _bias[3];
+    int32_t _rawdata_sums[3];
 
-	float _unit_g;
+    float _unit_g;
 };
 
 #endif /* ADXL345_H_ */

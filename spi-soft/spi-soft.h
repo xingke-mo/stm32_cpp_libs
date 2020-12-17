@@ -12,22 +12,23 @@
 
 // function as a spi master
 
-class SpiSoft {
+class SpiSoft
+{
 public:
-	SpiSoft(Gpio & mosi, Gpio & miso, Gpio & sck, Gpio & ss);
-	virtual ~SpiSoft();
-	void transmit(const uint8_t * out, uint8_t * in, uint32_t length);
-	void transmit(const uint8_t *out, uint32_t out_length, uint8_t * in,
-			uint32_t in_length, uint8_t dummy_data = 0x00);
-	void transmit(const uint8_t out, uint8_t * in, uint32_t in_length);
-	void init();
+    SpiSoft( Gpio &mosi, Gpio &miso, Gpio &sck, Gpio &ss );
+    virtual ~SpiSoft();
+    void transmit( const uint8_t *out, uint8_t *in, uint32_t length );
+    void transmit( const uint8_t *out, uint32_t out_length, uint8_t *in,
+                   uint32_t in_length, uint8_t dummy_data = 0x00 );
+    void transmit( const uint8_t out, uint8_t *in, uint32_t in_length );
+    void init();
 protected:
-	Gpio & _mosi;
-	Gpio & _miso;
-	Gpio & _sck;
+    Gpio &_mosi;
+    Gpio &_miso;
+    Gpio &_sck;
 
-	uint8_t transmitByte(uint8_t in);
-	Gpio & _ss;
+    uint8_t transmitByte( uint8_t in );
+    Gpio &_ss;
 
 };
 

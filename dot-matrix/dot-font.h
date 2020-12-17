@@ -10,12 +10,13 @@
 
 #include "stm32-template.h"
 
-struct DotFont {
-	uint8_t width;
-	uint8_t height;
-	uint8_t indent;
-	uint8_t length;
-	const uint8_t *pattern;
+struct DotFont
+{
+    uint8_t width;
+    uint8_t height;
+    uint8_t indent;
+    uint8_t length;
+    const uint8_t *pattern;
 };
 
 extern const DotFont vfont_7x3;

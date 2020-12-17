@@ -12,10 +12,10 @@
 #include <stdio.h>
 
 //读RX有效数据,1~32字节
-#define R_RX_PLOAD     	0x61
+#define R_RX_PLOAD      0x61
 
 //写TX有效数据,1~32字节
-#define W_TX_PLOAD     	0xA0
+#define W_TX_PLOAD      0xA0
 
 //清除TX FIFO寄存器.发射模式下用
 #define FLUSH_TX        0xE1
@@ -26,7 +26,7 @@
 //重新使用上一包数据,CE为高,数据包被不断发送.
 #define REUSE_TX_PL     0xE3
 
-#define R_RX_PL_WID		0x60
+#define R_RX_PL_WID     0x60
 
 //配置寄存器地址;bit0:1接收模式,0发射模式;bit1:电选择;bit2:CRC模式;bit3:CRC使能;
 //bit4:中断MAX_RT(达到最大重发次数中断)使能;bit5:中断TX_DS使能;bit6:中断RX_DR使能
@@ -54,13 +54,13 @@
 #define STATUS          0x07
 
 //bit5:数据发送完成中断;bit6:接收数据中断; 达到最大发送次数中断
-#define MAX_TX  		0x10
+#define MAX_TX          0x10
 
 //TX发送完成中断
-#define TX_OK   		0x20
+#define TX_OK           0x20
 
 //接收到数据中断
-#define RX_OK   		0x40
+#define RX_OK           0x40
 
 //发送检测寄存器,bit7:4,数据包丢失计数器;bit3:0,重发计数器
 #define OBSERVE_TX      0x08
@@ -110,44 +110,45 @@
 //FIFO状态寄存器;bit0,RX FIFO寄存器空标志;bit1,RX FIFO满标志;bit2,3,保留
 #define FIFO_STATUS     0x17
 
-#define DNYPD			0x1C
-#define FEATURE     	0x1D
+#define DNYPD           0x1C
+#define FEATURE         0x1D
 
-extern void delay(u32);
-extern void delayMicroseconds(u32);
+extern void delay( u32 );
+extern void delayMicroseconds( u32 );
 
-class Nrf24l01p {
+class Nrf24l01p
+{
 public:
-	Nrf24l01p(Spi & spi, Gpio & spi_sck, Gpio & spi_miso, Gpio & spi_mosi,
-			Gpio & nrf_irq, Gpio & nrf_csn, Gpio & nrf_ce);
-	void init(u8 channel = 0x34);
+    Nrf24l01p( Spi &spi, Gpio &spi_sck, Gpio &spi_miso, Gpio &spi_mosi,
+               Gpio &nrf_irq, Gpio &nrf_csn, Gpio &nrf_ce );
+    void init( u8 channel = 0x34 );
 
-	void writeReg(u8 addr, u8*data, u8 length);
-	void writeReg(u8 addr, u8 data);
-	void readReg(u8 addr, u8*data, u8 length);
+    void writeReg( u8 addr, u8 *data, u8 length );
+    void writeReg( u8 addr, u8 data );
+    void readReg( u8 addr, u8 *data, u8 length );
 
-	u8 send(u8 * dt, u8 length);
-	u8 sendFromMaster(u8 * slave_addr, u8 * dt, u8 length);
-	u8 sendFromSlave(u8 * dt, u8 length);
-	u8 recv(u8 *);
+    u8 send( u8 *dt, u8 length );
+    u8 sendFromMaster( u8 *slave_addr, u8 *dt, u8 length );
+    u8 sendFromSlave( u8 *dt, u8 length );
+    u8 recv( u8 * );
 
-	// len(addr_msbytes) == 4, len(lsbytes) == 5, uniquess required in lsbytes
-	void initMaster(u8 * addr_msbytes, u8 * lsbytes);
-	void initSlave(u8 * addr);
+    // len(addr_msbytes) == 4, len(lsbytes) == 5, uniquess required in lsbytes
+    void initMaster( u8 *addr_msbytes, u8 *lsbytes );
+    void initSlave( u8 *addr );
 
 private:
-	Spi & _spi;
-	Gpio & _sck;
-	Gpio & _miso;
-	Gpio & _mosi;
+    Spi &_spi;
+    Gpio &_sck;
+    Gpio &_miso;
+    Gpio &_mosi;
 
-	Gpio & _irq;
-	Gpio & _csn;
-	Gpio & _ce;
+    Gpio &_irq;
+    Gpio &_csn;
+    Gpio &_ce;
 
-	void setupTx();
-	void setupRx();
-	void command(u8);
+    void setupTx();
+    void setupRx();
+    void command( u8 );
 };
 
 #endif

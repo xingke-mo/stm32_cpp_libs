@@ -10,15 +10,16 @@
 
 #include "misc.h"
 
-class Nvic {
+class Nvic
+{
 public:
 
-	static void configureGroup(uint32_t priority_group = NVIC_PriorityGroup_0);
+    static void configureGroup( uint32_t priority_group = NVIC_PriorityGroup_0 );
 
-	static void configure(uint8_t irq_channel,
-		uint8_t preemption_priority,
-		uint8_t sub_priority,
-		FunctionalState cmd);
+    static void configure( uint8_t irq_channel,
+                           uint8_t preemption_priority,
+                           uint8_t sub_priority,
+                           FunctionalState cmd );
 };
 
 extern Nvic nvic;

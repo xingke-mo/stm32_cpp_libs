@@ -15,48 +15,61 @@
  */
 #include "dot-string.h"
 
-DotString::DotString(DotChar & dc, uint8_t length, bool smart_width) :
-		_dc(dc) {
-	_length = length;
-	_smart_width = smart_width;
-	_str = (char *) malloc(sizeof(char) * _length);
+DotString::DotString( DotChar &dc, uint8_t length, bool smart_width ) :
+    _dc( dc )
+{
+    _length = length;
+    _smart_width = smart_width;
+    _str = ( char * ) malloc( sizeof( char ) * _length );
 }
 
-DotString::~DotString() {
-	free(_str);
+DotString::~DotString()
+{
+    free( _str );
 }
 
-void DotString::printf(const char *__fmt, ...) {
-	va_list ap;
-	va_start(ap, __fmt);
-	vsnprintf(_str, _length, __fmt, ap);
-	va_end(ap);
+void DotString::printf( const char *__fmt, ... )
+{
+    va_list ap;
+    va_start( ap, __fmt );
+    vsnprintf( _str, _length, __fmt, ap );
+    va_end( ap );
 }
 
-void DotString::postAt(uint8_t col, uint8_t row) {
-	uint8_t cursor;
+void DotString::postAt( uint8_t col, uint8_t row )
+{
+    uint8_t cursor;
 
-	if (row > (_dc.getVertical() ? _dc.getMaxRow() : _dc.getMaxCol()))
-		return;
+    if( row > ( _dc.getVertical() ? _dc.getMaxRow() : _dc.getMaxCol() ) )
+    {
+        return;
+    }
 
-	char *p = _str;
+    char *p = _str;
 
-	cursor = col;
-	while (*p) {
-		_dc.setChar(*p++);
-		_dc.postAt(cursor, row);
-		cursor +=
-				_smart_width ? _dc.calcFontRealWidth() + 1 : _dc.getWidth() + 1;
-		if (cursor > (_dc.getVertical() ? _dc.getMaxCol() : _dc.getMaxRow()))
-			break;
-	}
+    cursor = col;
+
+    while( *p )
+    {
+        _dc.setChar( *p++ );
+        _dc.postAt( cursor, row );
+        cursor +=
+            _smart_width ? _dc.calcFontRealWidth() + 1 : _dc.getWidth() + 1;
+
+        if( cursor > ( _dc.getVertical() ? _dc.getMaxCol() : _dc.getMaxRow() ) )
+        {
+            break;
+        }
+    }
 }
 
-void DotString::setChar(uint8_t index, char chr) {
-	assert_param(index < _length);
-	*(_str + index) = chr;
+void DotString::setChar( uint8_t index, char chr )
+{
+    assert_param( index < _length );
+    *( _str + index ) = chr;
 }
 
-char * DotString::getString() {
-	return _str;
+char *DotString::getString()
+{
+    return _str;
 }
